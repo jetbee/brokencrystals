@@ -43,6 +43,9 @@ export const Sign: FC = () => {
               className="profile-image"
             />
           </label>
+          <a href="/getapi" className="get-started-btn scrollto">
+            Get API
+          </a>
           <Link to="/" className="get-started-btn scrollto" onClick={logout}>
             Log out {user}
           </Link>
