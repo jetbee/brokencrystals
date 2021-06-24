@@ -17,6 +17,9 @@ export class User extends Base {
   lastName: string;
 
   @Property()
+  apiKey: string;
+
+  @Property()
   isAdmin: boolean;
 
   @Property({

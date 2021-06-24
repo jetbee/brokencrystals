@@ -58,7 +58,7 @@ async function bootstrap() {
       'Broken Crystals is a benchmark application that uses modern technologies and implements a set of common security vulnerabilities.',
     )
     .setVersion('1.0')
-    .addServer('https://brokencrystals.com/')
+    .addServer('https://user0.cst.deegouser.net/')
     .build();
   const document = SwaggerModule.createDocument(app, options);
 
