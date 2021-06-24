@@ -34,3 +34,5 @@ lerna-debug.log*
 .vscode/*
 
 keycloak/db
+
+package-lock.json

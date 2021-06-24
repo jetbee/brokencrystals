@@ -31,13 +31,14 @@ services:
     image: neuralegion/brokencrystals-client
     restart: always
     environment:
-      CERTBOT_EMAIL: "anatol@neuralegion.com"
+      CERTBOT_EMAIL: "domain@deego-net.jp"
     ports:
       - "80:80"
       - "443:443"
     depends_on:
       - nodejs
     volumes:
+      - ./public/build:/var/www/html:ro
       - ./nginx-config:/etc/nginx/user.conf.d:ro
       - letsencrypt:/etc/letsencrypt
 

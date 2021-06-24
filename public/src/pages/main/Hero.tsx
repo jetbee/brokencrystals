@@ -21,7 +21,7 @@ export const Hero: FC = () => {
           >
             <img
               src="assets/img/hero-img.png"
-              className="img-fluid animated"
+              className="img-fluid _animated"
               alt=""
             />
           </div>
