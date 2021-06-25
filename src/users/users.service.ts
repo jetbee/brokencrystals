@@ -3,7 +3,8 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { hashPassword } from '../auth/credentials.utils';
 import { User } from '../model/user.entity';
-import crypto from 'crypto';
+const crypto = require('crypto');
+
 const SALT_APIKEY = 'eee';
 
 
@@ -38,9 +39,8 @@ export class UsersService {
     u.lastName = lastName;
     u.isAdmin = false;
     u.password = await hashPassword(password);
-    // u.apiKey = crypto.createHash('sha1').update(SALT_APIKEY + email + password).digest('hex').toString();
-    u.apiKey = 'hoge';
-    
+    u.apiKey = crypto.createHash('sha1').update(SALT_APIKEY + email + password).digest('hex').toString();
+
     await this.usersRepository.persistAndFlush(u);
     this.log.debug(`Saved new user`);
 
@@ -64,6 +64,11 @@ export class UsersService {
   async findByEmail(email: string): Promise<User> {
     this.log.debug(`Called findByEmail ${email}`);
     return this.usersRepository.findOne({ email });
+  }
+
+  async findByApiKey(apiKey: string): Promise<User> {
+    this.log.debug(`Called findByApiKey ${apiKey}`);
+    return this.usersRepository.findOne({ apiKey: apiKey });
   }
 
   async findByEmailPrefix(emailPrefix: string): Promise<User[]> {

@@ -68,6 +68,26 @@ export class UsersController {
     }
   }
 
+  @Get('/bykey/:apiKey')
+  @ApiOperation({
+    description: 'returns user',
+  })
+  @ApiResponse({
+    type: UserDto,
+    status: 200,
+  })
+  async getUserByKey(@Param('apiKey') apiKey: string): Promise<UserDto> {
+    try {
+      this.logger.debug(`Find a user by apiKey: ${apiKey}`);
+      return UserDto.convertToApi(await this.usersService.findByApiKey(apiKey));
+    } catch (err) {
+      throw new InternalServerErrorException({
+        error: err.message,
+        location: __filename,
+      });
+    }
+  }
+
   @UseGuards(AuthGuard)
   @JwtType(JwtProcessorType.RSA)
   @Get('/one/:email/photo')

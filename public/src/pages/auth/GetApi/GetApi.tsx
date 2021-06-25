@@ -12,7 +12,7 @@ const salt = 'eee';
 export const GetApi: FC = () => {
   const [form, setForm] = useState<LoginUser>(defaultLoginUser);
   const { user, password } = form;
-  const [querystring, setQueryString] = useState('');
+  const [apiUrl, setApiUrl] = useState('');
 
   const onInput = ({ target }: { target: EventTarget | null }) => {
     const { name, value } = target as HTMLInputElement;
@@ -25,8 +25,8 @@ export const GetApi: FC = () => {
       .createHash('sha1')
       .update(salt + user + password)
       .digest('hex');
-    const tmp_querystring = `{key: ${apikey}}`;
-    setQueryString(tmp_querystring);
+    const tApiUrl = 'https://' + location.host + '/api/users/bykey/' + apikey;
+    setApiUrl(tApiUrl);
   };
 
   return (
@@ -65,20 +65,11 @@ export const GetApi: FC = () => {
         <form>
           <div className="form-group">
             <label>API URL</label>
-            <input
-              className="au-input au-input--full"
-              type="text"
-              name="apiurl"
-              value={'https://' + location.host + '/api/'}
-            />
-          </div>
-          <div className="form-group">
-            <label>Query String</label>
             <textarea
               className="au-input au-input--full"
-              name="querystring"
-              placeholder="Query String"
-              value={querystring}
+              name="apiUrl"
+              placeholder="API URL"
+              value={apiUrl}
             />
           </div>
         </form>
