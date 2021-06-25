@@ -3,6 +3,9 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable, Logger } from '@nestjs/common';
 import { hashPassword } from '../auth/credentials.utils';
 import { User } from '../model/user.entity';
+import crypto from 'crypto';
+const SALT_APIKEY = 'eee';
+
 
 @Injectable()
 export class UsersService {
@@ -35,7 +38,9 @@ export class UsersService {
     u.lastName = lastName;
     u.isAdmin = false;
     u.password = await hashPassword(password);
-
+    // u.apiKey = crypto.createHash('sha1').update(SALT_APIKEY + email + password).digest('hex').toString();
+    u.apiKey = 'hoge';
+    
     await this.usersRepository.persistAndFlush(u);
     this.log.debug(`Saved new user`);
 

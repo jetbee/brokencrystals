@@ -26,6 +26,8 @@ services:
     depends_on:
       - db
       - keycloak
+    volumes:
+    - ./dist:/home/node/bc/dist
 
   proxy:
     image: neuralegion/brokencrystals-client
